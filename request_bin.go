@@ -12,7 +12,6 @@ import (
 type MockServer struct {
 	// The mock server instance
 	testServer *httptest.Server
-
 	// The channel in which each new request received by the mock server will be passed to.
 	Reqs chan MockRequest
 }
