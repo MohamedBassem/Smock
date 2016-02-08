@@ -9,10 +9,13 @@ import (
 func ExampleCaptureRequests() {
 
 	reqs := CaptureRequests(func(url string) {
-		http.Post(url, "text/plain", strings.NewReader("Hello World!"))
+		http.Post(url, "text/plain", strings.NewReader("Hello"))
+		http.Post(url, "text/plain", strings.NewReader("It's me"))
 	}, 200, 3)
 
 	fmt.Println(reqs[0].Body)
-	// Output: Hello World!
+	fmt.Println(reqs[1].Body)
+	// Output: Hello
+	// It's me
 
 }
