@@ -9,58 +9,58 @@ import (
 	"time"
 )
 
-type mockServer struct {
+type MockServer struct {
 	// The mock server instance
 	testServer *httptest.Server
 
 	// The channel in which each new request received by the mock server will be passed to.
-	Reqs chan mockRequest
+	Reqs chan MockRequest
 }
 
-type mockRequest struct {
+type MockRequest struct {
 	Body    string
 	Headers http.Header
 }
 
 // Stops the mock server and closes the requests channel
-func (m *mockServer) Close() {
+func (m *MockServer) Close() {
 	m.testServer.Close()
 	close(m.Reqs)
 }
 
 // Returns the URL of the created mockServer
-func (m *mockServer) URL() string {
+func (m *MockServer) URL() string {
 	return m.testServer.URL
 }
 
 // NewRequestBin returns a mockServer instance that you can use on your own instead of using the higher level CaptureRequests function.
-func NewRequestBin(responseStatusCode int) mockServer {
-	reqs := make(chan mockRequest)
+func NewRequestBin(responseStatusCode int) MockServer {
+	reqs := make(chan MockRequest)
 
 	testServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(responseStatusCode)
 		body, _ := ioutil.ReadAll(r.Body)
-		reqs <- mockRequest{
+		reqs <- MockRequest{
 			Body:    string(body),
 			Headers: r.Header,
 		}
 	}))
 
-	return mockServer{
+	return MockServer{
 		Reqs:       reqs,
 		testServer: testServer,
 	}
 }
 
 // CaptureRequests takes a function that we need to test, the response status code that's returned from the mockserver and a timeout. CaptureRequests passes the URL of the mock server to the function passed, and any request that is sent to this URL is logged. The server is stopped and the function returns whenever there isn't any new requests within <timeout> seconds from the last request.
-func CaptureRequests(f func(string), responseStatusCode, timeout int) []mockRequest {
+func CaptureRequests(f func(string), responseStatusCode, timeout int) []MockRequest {
 
 	server := NewRequestBin(responseStatusCode)
 	defer server.Close()
 
 	f(server.URL())
 
-	ret := make([]mockRequest, 0)
+	ret := make([]MockRequest, 0)
 
 	for {
 		select {
