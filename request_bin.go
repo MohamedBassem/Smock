@@ -27,12 +27,12 @@ func (m *MockServer) Close() {
 	close(m.Reqs)
 }
 
-// Returns the URL of the created mockServer
+// Returns the URL of the created MockServer
 func (m *MockServer) URL() string {
 	return m.testServer.URL
 }
 
-// NewRequestBin returns a mockServer instance that you can use on your own instead of using the higher level CaptureRequests function.
+// NewRequestBin returns a MockServer instance that you can use on your own instead of using the higher level CaptureRequests function.
 func NewRequestBin(responseStatusCode int) MockServer {
 	reqs := make(chan MockRequest)
 
@@ -51,7 +51,7 @@ func NewRequestBin(responseStatusCode int) MockServer {
 	}
 }
 
-// CaptureRequests takes a function that we need to test, the response status code that's returned from the mockserver and a timeout. CaptureRequests passes the URL of the mock server to the function passed, and any request that is sent to this URL is logged. The server is stopped and the function returns whenever there isn't any new requests within <timeout> seconds from the last request.
+// CaptureRequests takes a function that we need to test, the response status code that's returned from the mockserver and a timeout. CaptureRequests passes the URL of the mock server to the function passed, and any request that is sent to this URL is logged. The server is stopped and the function returns whenever there aren't any new requests within <timeout> seconds from the last request.
 func CaptureRequests(f func(string), responseStatusCode, timeout int) []MockRequest {
 
 	server := NewRequestBin(responseStatusCode)
