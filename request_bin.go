@@ -39,7 +39,7 @@ type MockServerConfig struct {
 	ResponseStatusCode int
 	// The number of seconds to stop the mock server after
 	GlobalTimeout int
-	// The number of seconds to stop the mock server after if the server didn't recieve any request within this period
+	// The number of seconds to stop the mock server after if the server didn't receive any request within this period
 	RequestTimeout int
 	// Number of requests to close the server after
 	MaximumRequestCount int
@@ -97,7 +97,7 @@ func NewRequestBin(config MockServerConfig) *MockServer {
 	return &server
 }
 
-// CaptureRequests takes a function to be tested. It starts the mock server, runs the function passing the URL of the mock server to it, and any request that is sent to this URL is logged. Depending on the MockServerConfig, the server can be stopped by two ways. The first one is the global timeout which stops the server after a fixed number of seconds. The second one is a timeout between requests, if the server didn't recieve any request within <config.RequestTimeout> seconds it will exit.
+// CaptureRequests takes a function to be tested. It starts the mock server, runs the function passing the URL of the mock server to it, and any request that is sent to this URL is logged. Depending on the MockServerConfig, the server can be stopped by two ways. The first one is the global timeout which stops the server after a fixed number of seconds. The second one is a timeout between requests, if the server didn't receive any request within <config.RequestTimeout> seconds it will exit.
 func (s *MockServer) CaptureRequests(f func(string)) []MockRequest {
 
 	s.Start()
