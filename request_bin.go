@@ -1,4 +1,4 @@
-// RequestBin is a package for testing the http requests initiated from your application. It takes a function and returns back all the requests that were initiated by this function.
+// Package requestBin is a package for testing the http requests initiated from your application. It takes a function and returns back all the requests that were initiated by this function.
 package requestBin
 
 import (
@@ -10,6 +10,7 @@ import (
 	"github.com/eapache/channels"
 )
 
+// The MockServer struct exposes the Reqs InfiniteChan of type MockRequest that you can use to get all the requests that the server received
 type MockServer struct {
 	// The mock server instance
 	testServer *httptest.Server
@@ -18,12 +19,17 @@ type MockServer struct {
 	Reqs *channels.InfiniteChannel
 }
 
+// The MockRequest struct is what's send by the server whenever it receives a request.
 type MockRequest struct {
-	Body    string
+	// The received request body
+	Body string
+	// The headers of the received request
 	Headers http.Header
-	Method  string
+	// The method of the received request
+	Method string
 }
 
+// Contains the configuration of the mock server
 type MockServerConfig struct {
 	// The response code returned by the mock server to all incoming requests
 	ResponseStatusCode int
@@ -35,20 +41,20 @@ type MockServerConfig struct {
 	MaximumRequestCount int
 }
 
-// Stops the mock server and closes the requests channel
+// Start starts the mock server and initiates the requests channel
 func (m *MockServer) Start() {
 	m.testServer.Start()
 	m.Reqs = channels.NewInfiniteChannel()
 }
 
-// Stops the mock server and closes the requests channel
+// Close stops the mock server and closes the requests channel
 func (m *MockServer) Close() {
 	m.testServer.Close()
 	m.Reqs.Close()
 	m.Reqs = nil
 }
 
-// Returns the URL of the created MockServer
+// URL returns the URL of the created MockServer
 func (m *MockServer) URL() string {
 	return m.testServer.URL
 }
