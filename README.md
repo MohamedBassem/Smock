@@ -5,7 +5,7 @@
 [![GoDoc](https://godoc.org/github.com/MohamedBassem/RequestBin?status.svg)](https://godoc.org/github.com/MohamedBassem/RequestBin)
 
 
-Package requestBin is a package for testing the outgoing http requests initiated from a function. The package creates a mock server and passes the URL to the function to be tested and then collects all the requests that the server received.
+RequestBin is a package for testing the outgoing http requests initiated from a function. The package creates a mock server and passes the URL to the function to be tested and then collects all the requests that the server received.
 
 ### Example
 
