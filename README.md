@@ -28,6 +28,10 @@ The server can be stopped after a certain amount of seconds, after a certain amo
 ### API
 The API is very simple and you can check it on [GoDoc](https://godoc.org/github.com/MohamedBassem/RequestBin). Reading the tests is also a good way for understanding the API.
 
+
+### Usecase
+For a usecase you can read my blog post about this package : [http://blog.mbassem.com/2016/02/09/requestbin2/](http://blog.mbassem.com/2016/02/09/requestbin2/).
+
 ### Notes
 The name RequestBin is originally used in [http://requestb.in/](http://requestb.in/) which basically does the same thing but using a web interface.
 
