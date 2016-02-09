@@ -19,7 +19,11 @@ func ExampleCaptureRequests() {
 	fmt.Println(reqs[0].Body) // Hello
 	fmt.Println(reqs[1].Body) // It's me
 }
+
 ```
+
+The server can be stopped after a certain amount of seconds, after a certain amount of requests or whenever it doesn't receive any new requests for a certain amount of time.
+
 
 ### API
 The API is very simple and you can check it on [GoDoc](https://godoc.org/github.com/MohamedBassem/RequestBin). Reading the tests is also a good way for understanding the API.
