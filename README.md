@@ -22,7 +22,7 @@ func ExampleCaptureRequests() {
 
 ```
 
-The server can be stopped after a certain amount of seconds, after a certain amount of requests or whenever it doesn't receive any new requests for a certain amount of time.
+The server can be stopped after a certain amount of seconds, after a certain amount of requests, whenever it doesn't receive any new requests for a certain amount of time or any combination of the three.
 
 
 ### API
