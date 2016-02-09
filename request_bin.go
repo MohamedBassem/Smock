@@ -31,6 +31,8 @@ type MockServerConfig struct {
 	GlobalTimeout int
 	// The number of seconds to stop the mock server after if the server didn't recieve any request within this period
 	RequestTimeout int
+	// Number of requests to close the server after
+	MaximumRequestCount int
 }
 
 // Stops the mock server and closes the requests channel
@@ -57,13 +59,13 @@ func mergeDefaultConfigs(config *MockServerConfig) {
 	}
 }
 
-// NewRequestBin returns a MockServer instance that you can use on your own or use the CaptureRequests function. Either the GlobalTimeout or the Requesttimeout must be set or the function will panic.
+// NewRequestBin returns a MockServer instance that you can use on your own or use the CaptureRequests function. At least one of: the GlobalTimeout, the RequestTimeout or MaximumRequestCount must be set.
 // If to be used on your own mockServer.Start() should be called first before starting to use the server and mockServer.Close() should be called to stop the server.
 func NewRequestBin(config MockServerConfig) *MockServer {
 
 	mergeDefaultConfigs(&config)
-	if config.GlobalTimeout == 0 && config.RequestTimeout == 0 {
-		panic("Either the GlobalTimeout or the RequestTimeout must be set or both")
+	if config.GlobalTimeout == 0 && config.RequestTimeout == 0 && config.MaximumRequestCount == 0 {
+		panic("At least one of: the GlobalTimeout, the RequestTimeout or MaximumRequestCount must be set")
 	}
 
 	server := MockServer{
@@ -93,20 +95,29 @@ func (s *MockServer) CaptureRequests(f func(string)) []MockRequest {
 
 	f(s.URL())
 
-	gtChan := time.After(time.Second * time.Duration(s.config.GlobalTimeout))
+	// If the timeout is not set, they will be kept as a nil chan that block forever
+	var rtChan, gtChan <-chan time.Time
+
+	if s.config.GlobalTimeout > 0 {
+		gtChan = time.After(time.Second * time.Duration(s.config.GlobalTimeout))
+	}
+
+	if s.config.RequestTimeout > 0 {
+		rtChan = time.After(time.Second * time.Duration(s.config.RequestTimeout))
+	}
 
 	ret := make([]MockRequest, 0)
 
 MainLoop:
 	for {
-		if len(gtChan) > 0 {
+		if s.config.MaximumRequestCount > 0 && len(ret) >= s.config.MaximumRequestCount {
 			break MainLoop
 		}
 		select {
 		case in := <-s.Reqs.Out():
 			request, _ := in.(MockRequest)
 			ret = append(ret, request)
-		case <-time.After(time.Second * time.Duration(s.config.RequestTimeout)):
+		case <-rtChan:
 			break MainLoop
 		case <-gtChan:
 			break MainLoop
