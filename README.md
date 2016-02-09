@@ -1,8 +1,8 @@
 # RequestBin
 
-[![Build Status](https://travis-ci.org/MohamedBassem/RequestBin.svg?branch=master)](https://travis-ci.org/MohamedBassem/requestBin)
-[![Coverage Status](https://coveralls.io/repos/github/MohamedBassem/RequestBin/badge.svg?branch=master)](https://coveralls.io/github/MohamedBassem/requestBin?branch=master)
-[![GoDoc](https://godoc.org/github.com/MohamedBassem/RequestBin?status.svg)](https://godoc.org/github.com/MohamedBassem/requestBin)
+[![Build Status](https://travis-ci.org/MohamedBassem/requestBin.svg?branch=master)](https://travis-ci.org/MohamedBassem/requestBin)
+[![Coverage Status](https://coveralls.io/repos/github/MohamedBassem/requestBin/badge.svg?branch=master)](https://coveralls.io/github/MohamedBassem/requestBin?branch=master)
+[![GoDoc](https://godoc.org/github.com/MohamedBassem/requestBin?status.svg)](https://godoc.org/github.com/MohamedBassem/requestBin)
 
 
 RequestBin is a package for testing the outgoing http requests initiated from a function. The package creates a mock server and passes the URL to the function to be tested and then collects all the requests that the server received.
