@@ -55,8 +55,8 @@ func (s *MockServer) Close() {
 }
 
 // URL returns the URL of the created MockServer
-func (m *MockServer) URL() string {
-	return m.testServer.URL
+func (s *MockServer) URL() string {
+	return s.testServer.URL
 }
 
 func mergeDefaultConfigs(config *MockServerConfig) {
