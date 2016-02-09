@@ -29,7 +29,7 @@ type MockRequest struct {
 	Method string
 }
 
-// Contains the configuration of the mock server
+// MockServerConfig contains the configuration of the mock server
 type MockServerConfig struct {
 	// The response code returned by the mock server to all incoming requests
 	ResponseStatusCode int
@@ -42,16 +42,16 @@ type MockServerConfig struct {
 }
 
 // Start starts the mock server and initiates the requests channel
-func (m *MockServer) Start() {
-	m.testServer.Start()
-	m.Reqs = channels.NewInfiniteChannel()
+func (s *MockServer) Start() {
+	s.testServer.Start()
+	s.Reqs = channels.NewInfiniteChannel()
 }
 
 // Close stops the mock server and closes the requests channel
-func (m *MockServer) Close() {
-	m.testServer.Close()
-	m.Reqs.Close()
-	m.Reqs = nil
+func (s *MockServer) Close() {
+	s.testServer.Close()
+	s.Reqs.Close()
+	s.Reqs = nil
 }
 
 // URL returns the URL of the created MockServer
@@ -112,7 +112,7 @@ func (s *MockServer) CaptureRequests(f func(string)) []MockRequest {
 		rtChan = time.After(time.Second * time.Duration(s.config.RequestTimeout))
 	}
 
-	ret := make([]MockRequest, 0)
+	var ret []MockRequest
 
 MainLoop:
 	for {
