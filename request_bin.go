@@ -1,4 +1,6 @@
-// Package requestBin is a package for testing the http requests initiated from your application. It takes a function and returns back all the requests that were initiated by this function.
+/*
+Package requestBin is a package for testing the outgoing http requests initiated from a function. The package creates a mock server and passes the URL to the function to be tested and then collects all the requests that the server received.
+*/
 package requestBin
 
 import (
