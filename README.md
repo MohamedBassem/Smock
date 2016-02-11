@@ -1,8 +1,8 @@
 # Smock
 
-[![Build Status](https://travis-ci.org/MohamedBassem/requestBin.svg?branch=master)](https://travis-ci.org/MohamedBassem/requestBin)
-[![Coverage Status](https://coveralls.io/repos/github/MohamedBassem/requestBin/badge.svg?branch=master)](https://coveralls.io/github/MohamedBassem/requestBin?branch=master)
-[![GoDoc](https://godoc.org/github.com/MohamedBassem/requestBin?status.svg)](https://godoc.org/github.com/MohamedBassem/requestBin)
+[![Build Status](https://travis-ci.org/MohamedBassem/Smock.svg?branch=master)](https://travis-ci.org/MohamedBassem/Smock)
+[![Coverage Status](https://coveralls.io/repos/github/MohamedBassem/Smock/badge.svg?branch=master)](https://coveralls.io/github/MohamedBassem/Smock?branch=master)
+[![GoDoc](https://godoc.org/github.com/MohamedBassem/Smock?status.svg)](https://godoc.org/github.com/MohamedBassem/Smock)
 
 *The package was previously called RequestBin, but was changed as per the request of [@johnsheehan](https://twitter.com/johnsheehan). Clones will still work with the old name thanks to Github, but the API will be slightly changed.*
 
