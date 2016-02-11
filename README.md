@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/MohamedBassem/Smock/badge.svg?branch=master)](https://coveralls.io/github/MohamedBassem/Smock?branch=master)
 [![GoDoc](https://godoc.org/github.com/MohamedBassem/Smock?status.svg)](https://godoc.org/github.com/MohamedBassem/Smock)
 
-*The package was previously called RequestBin, but was changed as per the request of [@johnsheehan](https://twitter.com/johnsheehan), the CEO of Runscope ( The company behind [http://requestb.in/](http://requestb.in/) ). Clones will still work with the old name thanks to Github, but the API will be slightly changed.*
+*The package was previously called RequestBin, but was changed as per the request of [@johnsheehan](https://twitter.com/johnsheehan), the CEO of Runscope (The company behind [http://requestb.in/](http://requestb.in/)). Clones will still work with the old name thanks to Github, but the API will be slightly changed.*
 
 Smock is a package for testing the outgoing http requests initiated from a function. The package creates a mock server and passes the URL to the function to be tested and then collects all the requests that the server received.
 
