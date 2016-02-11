@@ -31,7 +31,7 @@ The API is very simple and you can check it on [GoDoc](https://godoc.org/github.
 
 
 ### Usecase
-For a usecase you can read my blog post about this package : [http://blog.mbassem.com/2016/02/09/requestbin2/](http://blog.mbassem.com/2016/02/09/requestbin2/).
+For a usecase you can read my blog post about this package : [http://blog.mbassem.com/2016/02/09/smock/](http://blog.mbassem.com/2016/02/09/smock/).
 
 ### Contribution
 Your contributions and ideas are welcomed through issues and pull requests.
