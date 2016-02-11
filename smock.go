@@ -1,9 +1,9 @@
 /*
-Package requestBin is a package for testing the outgoing http requests initiated from a function. The package creates a mock server and passes the URL to the function to be tested and then collects all the requests that the server received.
+Package smock is a package for testing the outgoing http requests initiated from a function. The package creates a mock server and passes the URL to the function to be tested and then collects all the requests that the server received.
 
 The server can be stopped after a certain amount of seconds, after a certain amount of requests, whenever it doesn't receive any new requests for a certain amount of time or any combination of the three.
 */
-package requestBin
+package smock
 
 import (
 	"io/ioutil"
@@ -69,9 +69,9 @@ func mergeDefaultConfigs(config *MockServerConfig) {
 	}
 }
 
-// NewRequestBin returns a MockServer instance that you can use on your own or use the CaptureRequests function. At least one of: the GlobalTimeout, the RequestTimeout or MaximumRequestCount must be set.
+// NewMockServer returns a MockServer instance that you can use on your own or use the CaptureRequests function. At least one of: the GlobalTimeout, the RequestTimeout or MaximumRequestCount must be set.
 // If to be used on your own mockServer.Start() should be called first before starting to use the server and mockServer.Close() should be called to stop the server.
-func NewRequestBin(config MockServerConfig) *MockServer {
+func NewMockServer(config MockServerConfig) *MockServer {
 
 	mergeDefaultConfigs(&config)
 	if config.GlobalTimeout == 0 && config.RequestTimeout == 0 && config.MaximumRequestCount == 0 {

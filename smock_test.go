@@ -1,4 +1,4 @@
-package requestBin
+package smock
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ import (
 
 func ExampleCaptureRequests() {
 
-	reqs := NewRequestBin(MockServerConfig{RequestTimeout: 1}).CaptureRequests(func(url string) {
+	reqs := NewMockServer(MockServerConfig{RequestTimeout: 1}).CaptureRequests(func(url string) {
 		http.Post(url, "text/plain", strings.NewReader("Hello"))
 		http.Post(url, "text/plain", strings.NewReader("It's me"))
 	})
@@ -25,7 +25,7 @@ func ExampleCaptureRequests() {
 }
 
 func TestGlobalTimeout(t *testing.T) {
-	reqs := NewRequestBin(MockServerConfig{GlobalTimeout: 1}).CaptureRequests(func(url string) {
+	reqs := NewMockServer(MockServerConfig{GlobalTimeout: 1}).CaptureRequests(func(url string) {
 		http.Post(url, "text/plain", strings.NewReader("Hello"))
 		go func() {
 			<-time.After(time.Second * 3)
@@ -37,7 +37,7 @@ func TestGlobalTimeout(t *testing.T) {
 }
 
 func TestRequestTimeout(t *testing.T) {
-	reqs := NewRequestBin(MockServerConfig{RequestTimeout: 2}).CaptureRequests(func(url string) {
+	reqs := NewMockServer(MockServerConfig{RequestTimeout: 2}).CaptureRequests(func(url string) {
 		http.Post(url, "text/plain", strings.NewReader("Hello"))
 		http.Post(url, "text/plain", strings.NewReader("Hello"))
 		go func() {
@@ -50,7 +50,7 @@ func TestRequestTimeout(t *testing.T) {
 }
 
 func TestMaximumRequestCount(t *testing.T) {
-	reqs := NewRequestBin(MockServerConfig{MaximumRequestCount: 2}).CaptureRequests(func(url string) {
+	reqs := NewMockServer(MockServerConfig{MaximumRequestCount: 2}).CaptureRequests(func(url string) {
 		http.Post(url, "text/plain", strings.NewReader("Hello"))
 		http.Post(url, "text/plain", strings.NewReader("Hello"))
 		http.Post(url, "text/plain", strings.NewReader("Hello"))
@@ -61,7 +61,7 @@ func TestMaximumRequestCount(t *testing.T) {
 
 func TestNormalFlow(t *testing.T) {
 
-	reqs := NewRequestBin(MockServerConfig{ResponseStatusCode: 201, MaximumRequestCount: 2}).CaptureRequests(func(url string) {
+	reqs := NewMockServer(MockServerConfig{ResponseStatusCode: 201, MaximumRequestCount: 2}).CaptureRequests(func(url string) {
 		http.Post(url, "text/plain", strings.NewReader("Hello"))
 
 		req, _ := http.NewRequest("DELETE", url, strings.NewReader("It's me"))
@@ -83,6 +83,6 @@ func TestNormalFlow(t *testing.T) {
 
 func TestPanicOnMissingTimeouts(t *testing.T) {
 	assert.Panics(t, func() {
-		NewRequestBin(MockServerConfig{})
+		NewMockServer(MockServerConfig{})
 	})
 }
